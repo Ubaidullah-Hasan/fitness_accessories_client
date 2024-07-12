@@ -1,0 +1,7 @@
+.hero{
+    background-image: url("../../../assets/home/hero.jpg"),linear-gradient(90deg, rgba(0, 0, 0, 0.596), rgba(0, 0, 0, 0.156));
+    background-blend-mode: overlay;
+    background-position: center center;
+    background-size: cover;
+    border-radius: 5px;
+}

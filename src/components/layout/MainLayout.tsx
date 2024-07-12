@@ -1,13 +1,13 @@
-import { Breadcrumb, Layout, Menu, theme } from "antd";
-import { Content, Footer, Header } from "antd/es/layout/layout";
+import { Layout, theme } from "antd";
+import { Content, Footer } from "antd/es/layout/layout";
+import MainHeader from "../header/MainHeader";
+import TopHeader from "../header/TopHeader";
+import { Outlet } from "react-router-dom";
+
 
 const MainLayout = () => {
 
-    // menu items
-    const items = new Array(15).fill(null).map((_, index) => ({
-        key: index + 1,
-        label: `nav ${index + 1}`,
-    }));
+
 
     const {
         token: { colorBgContainer, borderRadiusLG },
@@ -15,31 +15,17 @@ const MainLayout = () => {
 
     return (
         <Layout>
-            <Header style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="demo-logo" />
-                <Menu
-                    theme="dark"
-                    mode="horizontal"
-                    defaultSelectedKeys={['2']}
-                    items={items}
-                    style={{ flex: 1, minWidth: 0 }}
-                />
-            </Header>
-            <Content style={{ padding: '0 48px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
+            <TopHeader />
+            <MainHeader />
+            <Content style={{ padding: '0 48px', marginTop: "20px"}}>
                 <div
                     style={{
                         background: colorBgContainer,
                         minHeight: 280,
-                        padding: 24,
                         borderRadius: borderRadiusLG,
                     }}
                 >
-                    Content
+                    <Outlet />
                 </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>
