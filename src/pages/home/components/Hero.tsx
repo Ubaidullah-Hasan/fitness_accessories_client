@@ -1,6 +1,6 @@
 import { Button } from 'antd';
 import { Link } from 'react-router-dom';
-import "./style/hero.css"
+import "./../style/hero.css"
 
 const Hero = () => {
     return (
