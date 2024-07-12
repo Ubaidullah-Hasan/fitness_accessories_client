@@ -9,3 +9,7 @@
 .ant-menu-title-content:hover{
     color: rgb(255, 255, 255);
 }
+
+.section {
+    @apply mt-[60px];
+}
