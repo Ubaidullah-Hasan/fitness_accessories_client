@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Categories = () => {
     const { data: categories } = useGetAllCategoriesQuery(undefined);
-    console.log(categories);
     const navigate = useNavigate();
 
 
