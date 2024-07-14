@@ -3,6 +3,7 @@ import { Content, Footer } from "antd/es/layout/layout";
 import MainHeader from "../header/MainHeader";
 import TopHeader from "../header/TopHeader";
 import { Outlet } from "react-router-dom";
+import MainFooter from "../MainFooter";
 
 
 const MainLayout = () => {
@@ -17,7 +18,7 @@ const MainLayout = () => {
         <Layout>
             <TopHeader />
             <MainHeader />
-            <Content style={{ padding: '0 48px', marginTop: "20px"}}>
+            <Content style={{ padding: '0 48px', marginTop: "20px", marginBottom:"20px" }}>
                 <div
                     style={{
                         background: colorBgContainer,
@@ -28,9 +29,10 @@ const MainLayout = () => {
                     <Outlet />
                 </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
-                Ant Design ©{new Date().getFullYear()} Created by Ant UED
-            </Footer>
+
+            {/* footer */}
+            <MainFooter />
+
         </Layout>
     );
 };
