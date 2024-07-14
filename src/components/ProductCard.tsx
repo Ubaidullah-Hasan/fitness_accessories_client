@@ -23,7 +23,6 @@ type TProductProps = {
 };
 
 const ProductCard = ({ product }: TProductProps) => {
-    console.log(product);
 
     const StarDrawing = (
         <path

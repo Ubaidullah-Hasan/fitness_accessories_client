@@ -1,0 +1,23 @@
+.image-grid {
+    grid-template-columns: repeat(5, minmax(200px, 1fr));
+}
+
+/* Portrait images */
+.grid-item.portrait {
+    grid-column: span 1;
+    grid-row: span 2;
+    /* Make portrait images taller */
+}
+
+/* Landscape images */
+.grid-item.landscape {
+    grid-column: span 2;
+    grid-row: span 1;
+    /* Make landscape images wider */
+}
+
+.grid-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

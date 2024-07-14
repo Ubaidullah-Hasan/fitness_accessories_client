@@ -21,7 +21,6 @@ const productsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getAllProducts: builder.query<TProduct[], undefined | string | TProductQueryParams>({
             query: (payload: TProductQueryParams) => {
-                console.log(payload);
                 const {limit, order} = payload;
                 return {
                     url: `/products?limit=${limit}&order=${order}`,
