@@ -1,29 +1,45 @@
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "./imageGallary.css"
 import { useEffect, useState } from "react";
+import Gallery from "react-photo-gallery";
 
-type Orientation = 'landscape' | 'portrait';
+type TOrientation = 'landscape' | 'portrait';
+
+type TOrientationPromise = {
+    orientation: TOrientation;
+    width: number;
+    height: number;
+}
 
 type TImages = {
     _id: string;
-    orientation?: Orientation;
+    orientation: TOrientation;
+    width: number;
+    height: number;
+    src: string,
+};
+
+type TDataOfImages = {
+    _id: string;
     image: string;
 };
 
 
 type TDataProps = {
-    dataOfImages: TImages[] | undefined;
+    dataOfImages: TDataOfImages[] | undefined;
 }
 
 const ImageGallary = ({ dataOfImages }: TDataProps) => {
     const [images, setImages] = useState<TImages[]>([]);
 
-
-    const determineOrientation = (url: string): Promise<Orientation> => {
+    const determineOrientation = (url: string): Promise<TOrientationPromise> => {
         return new Promise((resolve) => {
             const img = new Image();
             img.onload = () => {
-                resolve(img.width >= img.height ? 'landscape' : 'portrait');
+                const orientation = img.width >= img.height ? 'landscape' : 'portrait';
+                resolve({
+                    orientation,
+                    width: img.width,
+                    height: img.height
+                });
             };
             img.src = url;
         });
@@ -37,8 +53,10 @@ const ImageGallary = ({ dataOfImages }: TDataProps) => {
                         const orientation = await determineOrientation(item.image);
                         const image = {
                             _id: item._id,
-                            orientation,
-                            image: item.image,
+                            orientation: orientation.orientation,
+                            width: orientation.width,
+                            height: orientation.height,
+                            src: item.image,
                         };
                         return image;
                     })
@@ -50,24 +68,13 @@ const ImageGallary = ({ dataOfImages }: TDataProps) => {
         fetchData();
     }, [dataOfImages]);
 
+    console.log(images)
+
     return (
-        <div className='image-grid grid gap-3 mx-4 rounded-[20px] overflow-hidden'>
+        <div className="mx-4 rounded-[20px] overflow-hidden h-[500px] shadow-lg">
             {
-                images?.map(img => (
-                    <div
-                        key={img?._id}
-                        className={`grid-item ${img?.orientation === 'portrait' ? 'portrait' : 'landscape'}`}
-                    >
-                        <LazyLoadImage
-                            className='w-full shadow-lg h-full grid-image'
-                            src={img?.image}
-                            alt={img?._id}
-                            height={"200px"}
-                            width={"180px"}
-                        // effect="blur"
-                        />
-                    </div>
-                ))
+                images.length &&
+                <Gallery photos={images} direction={"column"} columns={4} />
             }
         </div>
     );

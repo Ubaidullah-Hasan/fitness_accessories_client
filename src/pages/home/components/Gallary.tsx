@@ -13,7 +13,7 @@ const Gallary = () => {
 
 
     return (
-        <div className='section'>
+        <div className='section pb-4'>
             <SectionTitle
                 title='Our Happy Customers'
                 subtitle='See how our products have transformed lives'
