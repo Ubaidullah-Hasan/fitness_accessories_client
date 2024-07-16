@@ -1,6 +1,7 @@
 import Categorybox from "../../components/Categorybox";
 import PriceRange from "../../components/PriceRange";
 import SearchBox from "../../components/SearchBox";
+import ShortPrice from "../../components/ShortPrice";
 
 const Products = () => {
     return (
@@ -9,6 +10,7 @@ const Products = () => {
                 <SearchBox />
                 <Categorybox />
                 <PriceRange />
+                <ShortPrice />
             </div>
             <div className="bg-green-300 col-span-3">
 
