@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { RangeSlider, Slider } from 'rsuite';
+import 'rsuite/dist/rsuite.min.css';
+
 
 const PriceRange = () => {
+    const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+    console.log(priceRange);
+
+    const handlePriceChange = (range: [number, number]) => {
+        setPriceRange(range);
+    };
+
     return (
         <div>
-            <div>
-                <h3>Price Range</h3>
-                <input
-                    type="range"
-                    min="0"
-                    max="1000"
-                    value={priceRange[0]}
-                    onChange={(e) => handlePriceChange([Number(e.target.value), priceRange[1]])}
-                />
-                <input
-                    type="range"
-                    min="0"
-                    max="1000"
-                    value={priceRange[1]}
-                    onChange={(e) => handlePriceChange([priceRange[0], Number(e.target.value)])}
-                />
-                <span>
-                    {priceRange[0]} - {priceRange[1]}
-                </span>
+            <div className='flex flex-col'>
+                <h3 className='mb-2'>Price Range</h3>
+
+                <div className='flex items-center justify-between gap-5'>
+                    <div className='flex-1 bg-green-500'>
+                        <RangeSlider
+                            defaultValue={[10, 50]}
+                            onChange={(value) => {
+                                setPriceRange(value)
+                            }}
+                            max={2000}
+                        />
+                    </div>
+                    <span className='bg-stone-100 flex-none border border-white px-3 py-1 rounded-md font-semibold'>
+                        {priceRange[0]} - {priceRange[1]}
+                    </span>
+                </div>
+
             </div>
         </div>
     );
