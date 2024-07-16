@@ -2,7 +2,6 @@ import { Layout, Row, Col } from 'antd';
 import { FacebookOutlined, TwitterOutlined, InstagramOutlined, MailOutlined, PhoneOutlined } from '@ant-design/icons';
 
 const { Footer } = Layout;
-
 const MainFooter = () => {
     return (
         <Footer style={{ textAlign: 'center', padding: '50px 20px 0px', background: '#001529', color: '#fff' }}>

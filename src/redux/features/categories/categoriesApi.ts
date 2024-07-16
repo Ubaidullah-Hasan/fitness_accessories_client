@@ -2,7 +2,7 @@ import { baseApi } from "../../api/basiApi";
 
 type TCategories = {
     _id: string,
-    name: string;
+    categoriName: string;
     image: string;
 };
 

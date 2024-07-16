@@ -18,12 +18,12 @@ const Categories = () => {
                 {
                     categories?.map(categoty =>
                         <div
-                            onClick={() => navigate(categoty?.name)}
+                            onClick={() => navigate(categoty?.categoriName)}
                             key={categoty?._id}
                             className='rounded-md  border p-2 text-center w-[25%] shadow-md'
                         >
-                            <img className='object-cover h-48 w-96 rounded-md ' src={categoty?.image || "https://i.ibb.co/Vxh1YFt/dummbles.jpg"} alt={categoty?.name} />
-                            <h3 className='text-lg font-semibold tracking-wide my-2'>{categoty?.name}</h3>
+                            <img className='object-cover h-48 w-96 rounded-md ' src={categoty?.image || "https://i.ibb.co/Vxh1YFt/dummbles.jpg"} alt={categoty?.categoriName} />
+                            <h3 className='text-lg font-semibold tracking-wide my-2'>{categoty?.categoriName}</h3>
                         </div>)
                 }
             </div>

@@ -2,14 +2,19 @@ import { Menu } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { CiShoppingCart, CiUser } from "react-icons/ci";
 import { GoSearch } from "react-icons/go";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 const MainHeader = () => {
+    const navigate = useNavigate();
     // menu items
     const items = [
         {
             key: "Home",
             label: <NavLink to={"/"}>Home</NavLink>
+        },
+        {
+            key: "Product",
+            label: <NavLink to={"/products"}>Product</NavLink>
         },
         {
             key: "About",
@@ -27,15 +32,21 @@ const MainHeader = () => {
         },
         {
             key: "Contact",
-            label: <NavLink to={"/"}>Contact</NavLink>
-        }
+            label: <NavLink to={"/"}>About</NavLink>
+        },
     ]
+
+    const handleLogo = () => {
+        navigate("/");
+    }
+
+
     return (
         <Header
             style={{ display: "flex", alignItems: "center", justifyContent: "space-between", }}
             className="bg-secondary"
         >
-            <div className="text-white text-2xl">
+            <div className="text-white text-2xl cursor-pointer" onClick={handleLogo}>
                 <span className=" font-extrabold">G</span>
                 <span className="font-extrabold">Y</span>
                 <span className="text-primary font-extrabold">M</span>

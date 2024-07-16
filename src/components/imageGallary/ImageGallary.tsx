@@ -68,7 +68,6 @@ const ImageGallary = ({ dataOfImages }: TDataProps) => {
         fetchData();
     }, [dataOfImages]);
 
-    console.log(images)
 
     return (
         <div className="mx-4 rounded-[20px] overflow-hidden h-[500px] shadow-lg">
