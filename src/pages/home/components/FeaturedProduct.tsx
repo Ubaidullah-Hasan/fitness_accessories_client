@@ -3,7 +3,7 @@ import SectionTitle from "../../../components/SectionTitle";
 import { useGetAllProductsQuery } from "../../../redux/features/products/productsApi";
 
 const FeaturedProduct = () => {
-    const { data: products } = useGetAllProductsQuery({ order: '-1', limit: 4 });
+    const { data: products } = useGetAllProductsQuery({ sort: "desc", limit: 4 });
 
     return (
         <div className="section">

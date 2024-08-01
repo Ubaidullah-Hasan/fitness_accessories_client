@@ -1,11 +1,22 @@
 import { IoSearchOutline } from 'react-icons/io5';
 
-const SearchBox = () => {
+type TSerchBoxProps = {
+    setSearchTerm: (value: string) => string;
+}
+
+const SearchBox = ({ setSearchTerm }: TSerchBoxProps) => {
+
+    const handleSearch = (value: string) => {
+        console.log(value);
+        setSearchTerm(value);
+    };
+    
     return (
         <div className="flex justify-center items-center">
             <div className="relative w-full max-w-md">
                 <input
                     type="text"
+                    onChange={(e) => handleSearch(e.target.value)}
                     placeholder="Search..."
                     className="w-full pl-10 pr-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 />

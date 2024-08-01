@@ -1,25 +1,27 @@
 import { Select } from 'antd';
-import { useState } from 'react';
+import { TSort } from '../pages/productsPage/Products';
 
-const ShortPrice = () => {
-    const [sortOrder, setSortOrder] = useState<'asc' | 'desc' | ''>('');
+type TSortPriceProps = {
+    setSortOrder: (v: string) => string,
+    sortOrder: string,
+}
+
+const ShortPrice = ({ setSortOrder, sortOrder }: TSortPriceProps) => {
 
     const handleSortOrderChange = (order: 'asc' | 'desc' | '') => {
         setSortOrder(order);
-        console.log(order);
     };
 
-    
-    return (
-            <div>
-                <h3>Sort by Price</h3>
-                <Select className='w-full' value={sortOrder} onChange={(e) => handleSortOrderChange(e as 'asc' | 'desc' | '')}>
-                    <option value="">All</option>
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </Select>
 
-            </div>
+    return (
+        <div>
+            <h3 className='mb-2 text-lg'>Sort by Price</h3>
+            <Select className='w-full' value={sortOrder} onChange={(value) => handleSortOrderChange(value as TSort)}>
+                <option value="asc" >Low To High</option>
+                <option value="desc">High To Low</option>
+            </Select>
+
+        </div>
     );
 };
 

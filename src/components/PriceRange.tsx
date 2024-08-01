@@ -1,16 +1,18 @@
-import { useState } from 'react';
 import { RangeSlider } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 
 
-const PriceRange = () => {
-    const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-    console.log(priceRange);
+type TPriceRangeProps = {
+    priceRange: [number, number];
+    setPriceRange: (newRange: [number, number]) => void;
+};
+
+const PriceRange = ({ priceRange, setPriceRange }: TPriceRangeProps) => {
 
     return (
         <div>
             <div className='flex flex-col'>
-                <h3 className='mb-2'>Price Range</h3>
+                <h3 className='mb-2 text-lg'>Price Range</h3>
 
                 <div className='flex items-center justify-between gap-5'>
                     <div className='flex-1 bg-green-500'>

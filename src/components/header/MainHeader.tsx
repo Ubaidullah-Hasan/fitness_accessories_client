@@ -62,9 +62,9 @@ const MainHeader = () => {
             />
             {/* right side */}
             <div className="flex items-center text-white space-x-4 text-xl">
-                <Link to={""}><CiShoppingCart /></Link>
-                <Link to={""}><GoSearch /></Link>
-                <Link to={""} ><CiUser /></Link>
+                <Link className="hover:!text-primary" to={""}><CiShoppingCart /></Link>
+                <Link className="hover:!text-primary" to={""}><GoSearch /></Link>
+                <Link className="hover:!text-primary" to={""} ><CiUser /></Link>
             </div>
         </Header>
     );

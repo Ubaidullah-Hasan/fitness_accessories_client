@@ -3,7 +3,6 @@ import { useGetAllCategoriesQuery } from '../redux/features/categories/categorie
 
 const Categorybox = () => {
     const { data: categories } = useGetAllCategoriesQuery(undefined)
-    console.log(categories)
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
     const handleCategoryChange = (category: string) => {
@@ -17,16 +16,19 @@ const Categorybox = () => {
 
     return (
         <div className='flex flex-col gap-1'>
-            <h3 className='mb-2'>Categories</h3>
+            <h3 className='mb-2 text-lg'>Categories</h3>
             {categories?.map((category) => (
-                <label key={category._id}>
+                <div className='flex gap-3' key={category?._id}>
                     <input
+                        id={category?._id}
                         type="checkbox"
-                    checked={selectedCategories.includes(category?.categoriName)}
+                        checked={selectedCategories.includes(category?.categoriName)}
                         onChange={() => handleCategoryChange(category?.categoriName)}
                     />
-                    {category?.categoriName}
-                </label>
+                    <label key={category._id} htmlFor={category?._id}>
+                        {category?.categoriName}
+                    </label>
+                </div>
             ))}
         </div>
     );

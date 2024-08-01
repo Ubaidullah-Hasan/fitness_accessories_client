@@ -13,17 +13,20 @@ export type TProduct = {
 }
 
 type TProductQueryParams = {
-    order?: string;
+    sort?: string;
     limit?: number;
+    searchTerm?: string;
 }
 
 const productsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getAllProducts: builder.query<TProduct[], undefined | string | TProductQueryParams>({
             query: (payload: TProductQueryParams) => {
-                const {limit, order} = payload;
+                console.log(payload)
                 return {
-                    url: `/products?limit=${limit}&order=${order}`,
+                    // url: `/products?limit=${limit}&order=${order}`,
+                    url: `/products`,
+                    params: payload,
                     method: 'GET',
                 }
             }

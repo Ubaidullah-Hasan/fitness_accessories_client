@@ -3,13 +3,24 @@
 @tailwind utilities;
 
 
-.ant-menu-title-content{
+.ant-menu-title-content {
     color: rgb(238, 230, 230);
 }
-.ant-menu-title-content:hover{
+
+.ant-menu-title-content:hover {
     color: rgb(255, 255, 255);
 }
 
 .section {
     @apply mt-[60px];
+}
+
+a {
+    color: white !important;
+}
+
+a:hover,
+a:active {
+    text-decoration: none !important;
+    color: rgb(22, 119, 255);
 }

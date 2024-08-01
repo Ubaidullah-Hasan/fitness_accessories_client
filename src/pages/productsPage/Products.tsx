@@ -1,19 +1,50 @@
+import { useState } from "react";
 import Categorybox from "../../components/Categorybox";
+import ClearFilter from "../../components/ClearFilter";
 import PriceRange from "../../components/PriceRange";
+import ProductCard from "../../components/ProductCard";
 import SearchBox from "../../components/SearchBox";
 import ShortPrice from "../../components/ShortPrice";
+import { useGetAllProductsQuery } from "../../redux/features/products/productsApi";
+
+export type TSort = 'asc' | 'desc' | '';
 
 const Products = () => {
+    // for query
+    const [searchTerm, setSearchTerm] = useState<string>('');
+    const [sortOrder, setSortOrder] = useState<TSort>('');
+    const [priceRange, setPriceRange] = useState<[number, number]>([0, 20]);
+
+    const query = {
+        searchTerm,
+        sort: sortOrder,
+        priceRange,
+    }
+    console.log(query);
+
+    const { data: products } = useGetAllProductsQuery(query);
+    console.log(products, "products");
+
+
     return (
         <div className="grid grid-cols-4 gap-8">
-            <div className="col-span-1	bg-red-400 space-y-7">
-                <SearchBox />
+            <div className="col-span-1 p-4 space-y-7">
+                <SearchBox setSearchTerm={setSearchTerm} />
                 <Categorybox />
-                <PriceRange />
-                <ShortPrice />
+                <PriceRange priceRange={priceRange} setPriceRange={setPriceRange} />
+                <ShortPrice sortOrder={sortOrder} setSortOrder={setSortOrder} />
+                <ClearFilter />
             </div>
-            <div className="bg-green-300 col-span-3">
-
+            <div className="col-span-3 grid grid-cols-3 gap-3 p-4">
+                {
+                    products?.map(product => (
+                        <ProductCard
+                            isPrice={true}
+                            key={product?._id}
+                            product={product}
+                        />
+                    ))
+                }
             </div>
         </div>
     );

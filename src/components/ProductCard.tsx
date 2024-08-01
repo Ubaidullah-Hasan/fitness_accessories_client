@@ -20,9 +20,10 @@ type TProduct = {
 
 type TProductProps = {
     product: TProduct;
+    isPrice?: boolean;
 };
 
-const ProductCard = ({ product }: TProductProps) => {
+const ProductCard = ({ product, isPrice = false }: TProductProps) => {
 
     const StarDrawing = (
         <path
@@ -65,6 +66,7 @@ const ProductCard = ({ product }: TProductProps) => {
                     </div>
                     <NavLink to={`products/${product?.name}`}><Button className='uppercase'>details</Button></NavLink>
                 </div>
+                {isPrice && <p className='mt-2 text-[#ff6f00] font-bold'>${product?.price}</p>}
             </div>
         </div>
     );
