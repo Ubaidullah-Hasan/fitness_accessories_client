@@ -2,7 +2,7 @@ import { Select } from 'antd';
 import { TSort } from '../pages/productsPage/Products';
 
 type TSortPriceProps = {
-    setSortOrder: (v: string) => string,
+    setSortOrder: (v: 'asc' | 'desc' | '') => void,
     sortOrder: string,
 }
 

@@ -6,10 +6,11 @@ import { useGetAllCategoriesQuery } from '../redux/features/categories/categorie
 // }
 
 const Categorybox = ({ selectedCategories, setSelectedCategories}) => {
+    // todo: does not work
     const { data: categories } = useGetAllCategoriesQuery(undefined)
 
     const handleCategoryChange = (categoryId: string) => {
-        setSelectedCategories((prevCategories) =>
+        setSelectedCategories((prevCategories: string[]) =>
             prevCategories.includes(categoryId)
                 ? prevCategories.filter((c) => c !== categoryId)
                 : [...prevCategories, categoryId]

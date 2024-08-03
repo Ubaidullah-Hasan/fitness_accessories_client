@@ -40,9 +40,13 @@ const Products = () => {
         <div className="grid grid-cols-4 gap-8">
             <div className="col-span-1 p-4 space-y-7">
                 <SearchBox setSearchTerm={setSearchTerm} />
+
                 <Categorybox selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
+
                 <PriceRange priceRange={priceRange} setPriceRange={setPriceRange} />
+
                 <ShortPrice sortOrder={sortOrder} setSortOrder={setSortOrder} />
+                
                 <ClearFilter handleFilter={handleFilter} />
             </div>
             <div className="col-span-3 grid grid-cols-3 gap-3 p-4">

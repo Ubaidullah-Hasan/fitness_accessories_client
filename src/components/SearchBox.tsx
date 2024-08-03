@@ -1,7 +1,7 @@
 import { IoSearchOutline } from 'react-icons/io5';
 
 type TSerchBoxProps = {
-    setSearchTerm: (value: string) => string;
+    setSearchTerm: (value: string) => void;
 }
 
 const SearchBox = ({ setSearchTerm }: TSerchBoxProps) => {
