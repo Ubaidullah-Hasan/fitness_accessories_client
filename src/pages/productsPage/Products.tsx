@@ -13,14 +13,24 @@ const Products = () => {
     // for query
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [sortOrder, setSortOrder] = useState<TSort>('');
-    const [priceRange, setPriceRange] = useState<[number, number]>([0, 20]);
+    const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
 
     const query = {
         searchTerm,
         sort: sortOrder,
         priceRange,
+        selectedCategories,
     }
-    console.log(query);
+    // console.log(query);
+
+    const handleFilter = () => {
+        setSearchTerm("");
+        setSortOrder("");
+        setPriceRange([0, 1000]);
+        setSelectedCategories([]);
+    }
 
     const { data: products } = useGetAllProductsQuery(query);
     console.log(products, "products");
@@ -30,10 +40,10 @@ const Products = () => {
         <div className="grid grid-cols-4 gap-8">
             <div className="col-span-1 p-4 space-y-7">
                 <SearchBox setSearchTerm={setSearchTerm} />
-                <Categorybox />
+                <Categorybox selectedCategories={selectedCategories} setSelectedCategories={setSelectedCategories} />
                 <PriceRange priceRange={priceRange} setPriceRange={setPriceRange} />
                 <ShortPrice sortOrder={sortOrder} setSortOrder={setSortOrder} />
-                <ClearFilter />
+                <ClearFilter handleFilter={handleFilter} />
             </div>
             <div className="col-span-3 grid grid-cols-3 gap-3 p-4">
                 {

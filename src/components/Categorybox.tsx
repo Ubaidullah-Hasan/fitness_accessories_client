@@ -1,18 +1,20 @@
-import { useState } from 'react';
 import { useGetAllCategoriesQuery } from '../redux/features/categories/categoriesApi';
 
-const Categorybox = () => {
-    const { data: categories } = useGetAllCategoriesQuery(undefined)
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+// type TCategoryProps = {
+//     selectedCategories: string[],
+//     setSelectedCategories: (v: string[]) => void,
+// }
 
-    const handleCategoryChange = (category: string) => {
+const Categorybox = ({ selectedCategories, setSelectedCategories}) => {
+    const { data: categories } = useGetAllCategoriesQuery(undefined)
+
+    const handleCategoryChange = (categoryId: string) => {
         setSelectedCategories((prevCategories) =>
-            prevCategories.includes(category)
-                ? prevCategories.filter((c) => c !== category)
-                : [...prevCategories, category]
+            prevCategories.includes(categoryId)
+                ? prevCategories.filter((c) => c !== categoryId)
+                : [...prevCategories, categoryId]
         );
     };
-    console.log(selectedCategories);
 
     return (
         <div className='flex flex-col gap-1'>
@@ -22,8 +24,8 @@ const Categorybox = () => {
                     <input
                         id={category?._id}
                         type="checkbox"
-                        checked={selectedCategories.includes(category?.categoriName)}
-                        onChange={() => handleCategoryChange(category?.categoriName)}
+                        checked={selectedCategories.includes(category?._id)}
+                        onChange={() => handleCategoryChange(category?._id)}
                     />
                     <label key={category._id} htmlFor={category?._id}>
                         {category?.categoriName}

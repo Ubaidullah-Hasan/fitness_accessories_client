@@ -1,14 +1,15 @@
 import { Button } from 'antd';
 
-const ClearFilter = () => {
-    // const clearFilters = () => {
-    //     setSelectedCategories([]);
-    //     setPriceRange([0, 1000]);
-    //     setSortOrder('');
-    // };
+type THandleFilter = {
+    handleFilter: () => void
+}
+
+const ClearFilter = ({ handleFilter }: THandleFilter) => {
+
     return (
-        <Button className='bg-black text-white hover:!bg-black/75 hover:!text-white hover:!border-white'>Clear Filters</Button>
-        // <button onClick={clearFilters}>Clear Filters</button>
+        <Button className='bg-black text-white hover:!bg-black/75 hover:!text-white hover:!border-white'
+            onClick={handleFilter}
+        >Clear Filters</Button>
     );
 };
 
