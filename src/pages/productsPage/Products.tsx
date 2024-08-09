@@ -6,6 +6,7 @@ import ProductCard from "../../components/ProductCard";
 import SearchBox from "../../components/SearchBox";
 import ShortPrice from "../../components/ShortPrice";
 import { useGetAllProductsQuery } from "../../redux/features/products/productsApi";
+import { Flex, Spin } from "antd";
 
 export type TSort = 'asc' | 'desc' | '';
 
@@ -46,18 +47,24 @@ const Products = () => {
                 <PriceRange priceRange={priceRange} setPriceRange={setPriceRange} />
 
                 <ShortPrice sortOrder={sortOrder} setSortOrder={setSortOrder} />
-                
+
                 <ClearFilter handleFilter={handleFilter} />
             </div>
             <div className="col-span-3 grid grid-cols-3 gap-3 p-4">
                 {
-                    products?.map(product => (
-                        <ProductCard
-                            isPrice={true}
-                            key={product?._id}
-                            product={product}
-                        />
-                    ))
+                    products ?
+                        products?.map(product => (
+                            <ProductCard
+                                isPrice={true}
+                                key={product?._id}
+                                product={product}
+                            />
+                        )) :
+                        <div className="flex items-center justify-center">
+                            <Flex align="center" gap="middle" >
+                                <Spin size="large" />
+                            </Flex>
+                        </div>
                 }
             </div>
         </div>

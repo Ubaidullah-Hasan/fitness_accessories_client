@@ -4,7 +4,7 @@ export type TProduct = {
     _id: string;
     name: string;
     description: string;
-    category: string;
+    categoryId: string;
     price: number;
     image: string;
     stock: number;
@@ -17,12 +17,15 @@ type TProductQueryParams = {
     limit?: number;
     searchTerm?: string;
 }
+// type TSingleProductQueryParams = {
+//     id: string
+// }
 
 const productsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getAllProducts: builder.query<TProduct[], undefined | string | TProductQueryParams>({
             query: (payload: TProductQueryParams) => {
-                console.log(payload)
+                // console.log(payload)
                 return {
                     // url: `/products?limit=${limit}&order=${order}`,
                     url: `/products`,
@@ -31,7 +34,16 @@ const productsApi = baseApi.injectEndpoints({
                 }
             }
         }),
+        getSingleProductsByID: builder.query({
+            query: (payload) => {
+                // console.log(payload)
+                return {
+                    url: `/products/${payload}`,
+                    method: 'GET',
+                }
+            }
+        }),
     }),
 })
 
-export const { useGetAllProductsQuery } = productsApi
+export const { useGetAllProductsQuery, useGetSingleProductsByIDQuery } = productsApi
