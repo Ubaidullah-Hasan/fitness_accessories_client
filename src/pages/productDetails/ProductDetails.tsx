@@ -1,24 +1,35 @@
-import React, { useState } from 'react';
-import { TProduct, useGetSingleProductsByIDQuery } from '../../redux/features/products/productsApi';
+import { useState } from 'react';
+import { useGetSingleProductsByIDQuery } from '../../redux/features/products/productsApi';
+// import { ShoppingCartOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Button, InputNumber, notification } from 'antd';
 import { useParams } from 'react-router-dom';
+import { RootState } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, TCartItem } from '../../redux/features/cart/cartSlice';
+import { useAddCartsMutation } from '../../redux/features/cart/cartsApi';
 
-type TProductProps = {
-    product: TProduct
-}
 
 const ProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
-    const [cart, setCart] = useState<{ [key: string]: number }>({});
 
-    const { productName } = useParams<{ productName: string }>()
-    const { data: product } = useGetSingleProductsByIDQuery(productName);
-    // const { data: productItem } = useGetSingleProductsByIDQuery("6691785bb0b604e2e2252593"); todo
-    console.log(product);
+    const { id } = useParams<{ id: string }>()
+    const { data: product } = useGetSingleProductsByIDQuery(id);
+    console.log(id);
+
+
+    // const dispatch = useDispatch();
+    const cartItems = useSelector((state: RootState) => state.cart.items);
+    const [addToCart, {data, isLoading, error }] = useAddCartsMutation();
+    console.log({data, isLoading, error});
+
+
+    // Check if product is already in the cart
+    const cartItem = cartItems.find((item: TCartItem) => item.productId === product?._id);
+    const isAddToCartDisabled = cartItem && cartItem.quantity >= product?.stock;
 
     const handleAddToCart = () => {
-        if (quantity > product.stock) {
+        if (quantity > (product?.stock - (cartItem?.quantity || 0))) {
             notification.error({
                 message: "Error",
                 description: "Cannot add more than available stock.",
@@ -26,11 +37,21 @@ const ProductDetails = () => {
             return;
         }
 
-        setCart((prevCart) => {
-            const newCart = { ...prevCart };
-            newCart[product?._id] = (newCart[product?._id] || 0) + quantity;
-            return newCart;
-        });
+        addToCart({
+            productId: product?._id,
+            name: product?.name,
+            price: product?.price,
+            quantity,
+            stock: product?.stock,
+        })
+
+        // dispatch(addToCart({
+        //     productId: product?._id,
+        //     name: product?.name,
+        //     price: product?.price,
+        //     quantity,
+        //     stock: product?.stock,
+        // }));
 
         notification.success({
             message: "Success",
@@ -38,9 +59,21 @@ const ProductDetails = () => {
         });
     };
 
+    // const handleIncreaseQuantity = () => {
+    //     if (cartItem && cartItem.quantity < product?.stock) {
+    //         dispatch(increaseQuantity({ productId: product?._id }));
+    //     }
+    // };
+
+    // const handleDecreaseQuantity = () => {
+    //     if (cartItem && cartItem.quantity > 1) {
+    //         dispatch(decreaseQuantity({ productId: product?._id }));
+    //     }
+    // };
+
 
     return (
-        <div className="container mx-auto p-6">
+        <div className="mx-auto p-6"> {/* container */}
             <div className="flex flex-col lg:flex-row">
                 {/* Product Image */}
                 <div className="flex-1">
@@ -51,29 +84,40 @@ const ProductDetails = () => {
                     />
                 </div>
 
-
+                {/* Product Details */}
                 <div className="flex-1 lg:ml-10 mt-4 lg:mt-0">
                     <h1 className="text-3xl font-bold">{product?.name}</h1>
                     <p className="text-xl text-gray-600 my-2">${product?.price}</p>
                     <p className="my-4">{product?.description}</p>
-                    <p className="text-sm text-gray-500">Category: {product?.categoryId}</p>
+                    <p className="text-sm text-gray-500 uppercase">Brand: {product?.brand}</p>
 
-                    <div className="mt-4">
+                    <div className="mt-4 flex items-center">
+                        {/* <Button
+                            icon={<MinusOutlined />}
+                            onClick={handleDecreaseQuantity}
+                            disabled={!cartItem || cartItem.quantity <= 1}
+                        /> */}
                         <InputNumber
                             min={1}
-                            max={product?.stock}
-                            defaultValue={1}
-                            value={product?.stock}
+                            max={product?.stock - (cartItem?.quantity || 0)}
+                            value={cartItem?.quantity || quantity}
                             onChange={(value) => setQuantity(value || 1)}
+                            className="mx-2"
                         />
+                        {/* <Button
+                            icon={<PlusOutlined />}
+                            onClick={handleIncreaseQuantity}
+                            disabled={isAddToCartDisabled}
+                        /> */}
+
                         <Button
                             type="primary"
                             icon={<ShoppingCartOutlined />}
                             className="ml-4"
                             onClick={handleAddToCart}
-                            disabled={quantity >= product?.stock}
+                            disabled={isAddToCartDisabled}
                         >
-                            Add to Cart
+                            {isAddToCartDisabled ? 'Out of Stock' : 'Add to Cart'}
                         </Button>
                     </div>
 

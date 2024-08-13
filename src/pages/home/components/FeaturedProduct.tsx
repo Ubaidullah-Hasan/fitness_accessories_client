@@ -12,7 +12,7 @@ const FeaturedProduct = () => {
                 subtitle="Elevate Your Workout with Our Handpicked Gym Accessories"
             />
 
-            <div className="flex gap-1">
+            <div className="flex gap-1 mx-4">
                 {
                     products?.map(product => <ProductCard
                         key={product?._id}

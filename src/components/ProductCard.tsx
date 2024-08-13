@@ -64,7 +64,7 @@ const ProductCard = ({ product, isPrice = false }: TProductProps) => {
                         />
                         <span className='text-[11px] text-gray-400'>{`(${product?.rating})`}</span>
                     </div>
-                    <NavLink to={`/products/${product?.name}`}><Button className='uppercase'>details</Button></NavLink>
+                    <NavLink to={`/products/${product?._id}`}><Button className='uppercase'>details</Button></NavLink>
                 </div>
                 {isPrice && <p className='mt-2 text-[#ff6f00] font-bold'>${product?.price}</p>}
             </div>

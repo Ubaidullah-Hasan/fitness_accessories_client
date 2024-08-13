@@ -17,7 +17,7 @@ const PriceRange = ({ priceRange, setPriceRange }: TPriceRangeProps) => {
                 <div className='flex items-center justify-between gap-5'>
                     <div className='flex-1 bg-green-500'>
                         <RangeSlider
-                            defaultValue={[10, 50]}
+                            defaultValue={[priceRange[0], priceRange[1]]}
                             onChange={(value) => {
                                 setPriceRange(value)
                             }}

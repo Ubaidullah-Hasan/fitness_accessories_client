@@ -17,9 +17,6 @@ type TProductQueryParams = {
     limit?: number;
     searchTerm?: string;
 }
-// type TSingleProductQueryParams = {
-//     id: string
-// }
 
 const productsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -27,7 +24,6 @@ const productsApi = baseApi.injectEndpoints({
             query: (payload: TProductQueryParams) => {
                 // console.log(payload)
                 return {
-                    // url: `/products?limit=${limit}&order=${order}`,
                     url: `/products`,
                     params: payload,
                     method: 'GET',
@@ -36,7 +32,6 @@ const productsApi = baseApi.injectEndpoints({
         }),
         getSingleProductsByID: builder.query({
             query: (payload) => {
-                // console.log(payload)
                 return {
                     url: `/products/${payload}`,
                     method: 'GET',
