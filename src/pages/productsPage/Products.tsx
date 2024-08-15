@@ -58,6 +58,7 @@ const Products = () => {
                                 isPrice={true}
                                 key={product?._id}
                                 product={product}
+                                col={3}
                             />
                         )) :
                         <div className="flex items-center justify-center">

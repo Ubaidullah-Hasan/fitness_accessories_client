@@ -8,20 +8,19 @@ import { RootState } from '../../redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, TCartItem } from '../../redux/features/cart/cartSlice';
 import { useAddCartsMutation } from '../../redux/features/cart/cartsApi';
+import RatingIcon from '../../components/rating/RatingIcon';
 
 
 const ProductDetails = () => {
-    const [quantity, setQuantity] = useState(1);
+    const quantity = 1;
 
     const { id } = useParams<{ id: string }>()
     const { data: product } = useGetSingleProductsByIDQuery(id);
-    console.log(id);
 
-
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const cartItems = useSelector((state: RootState) => state.cart.items);
-    const [addToCart, {data, isLoading, error }] = useAddCartsMutation();
-    console.log({data, isLoading, error});
+    // const [addToCart, {data, isLoading, error }] = useAddCartsMutation();
+    // console.log({data, isLoading, error});
 
 
     // Check if product is already in the cart
@@ -37,21 +36,21 @@ const ProductDetails = () => {
             return;
         }
 
-        addToCart({
-            productId: product?._id,
-            name: product?.name,
-            price: product?.price,
-            quantity,
-            stock: product?.stock,
-        })
-
-        // dispatch(addToCart({
+        // addToCart({
         //     productId: product?._id,
         //     name: product?.name,
         //     price: product?.price,
         //     quantity,
         //     stock: product?.stock,
-        // }));
+        // })
+
+        dispatch(addToCart({
+            productId: product?._id,
+            name: product?.name,
+            price: product?.price,
+            quantity,
+            stock: product?.stock,
+        }));
 
         notification.success({
             message: "Success",
@@ -86,10 +85,13 @@ const ProductDetails = () => {
 
                 {/* Product Details */}
                 <div className="flex-1 lg:ml-10 mt-4 lg:mt-0">
+                    <p className="text-sm my-4 text-white uppercase font-semibold tracking-widest bg-stone-900 p-1 rounded-md w-fit ">{product?.brand}</p>
                     <h1 className="text-3xl font-bold">{product?.name}</h1>
-                    <p className="text-xl text-gray-600 my-2">${product?.price}</p>
                     <p className="my-4">{product?.description}</p>
-                    <p className="text-sm text-gray-500 uppercase">Brand: {product?.brand}</p>
+                    <div className='flex items-center gap-6'>
+                        <RatingIcon rating={product?.rating} />
+                        <span className="text-xl text-orange-500 font-bold">${product?.price}</span>
+                    </div>
 
                     <div className="mt-4 flex items-center">
                         {/* <Button
@@ -97,13 +99,13 @@ const ProductDetails = () => {
                             onClick={handleDecreaseQuantity}
                             disabled={!cartItem || cartItem.quantity <= 1}
                         /> */}
-                        <InputNumber
+                        {/* <InputNumber
                             min={1}
                             max={product?.stock - (cartItem?.quantity || 0)}
                             value={cartItem?.quantity || quantity}
                             onChange={(value) => setQuantity(value || 1)}
                             className="mx-2"
-                        />
+                        /> */}
                         {/* <Button
                             icon={<PlusOutlined />}
                             onClick={handleIncreaseQuantity}
@@ -113,7 +115,6 @@ const ProductDetails = () => {
                         <Button
                             type="primary"
                             icon={<ShoppingCartOutlined />}
-                            className="ml-4"
                             onClick={handleAddToCart}
                             disabled={isAddToCartDisabled}
                         >
