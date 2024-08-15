@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useGetSingleProductsByIDQuery } from '../../redux/features/products/productsApi';
 // import { ShoppingCartOutlined, PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Button, InputNumber, notification } from 'antd';
+import { Button, notification } from 'antd';
 import { useParams } from 'react-router-dom';
 import { RootState } from '../../redux/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, TCartItem } from '../../redux/features/cart/cartSlice';
+import { useSelector } from 'react-redux';
+import { TCartItem } from '../../redux/features/cart/cartSlice';
 import { useAddCartsMutation } from '../../redux/features/cart/cartsApi';
 import RatingIcon from '../../components/rating/RatingIcon';
 
@@ -17,10 +17,8 @@ const ProductDetails = () => {
     const { id } = useParams<{ id: string }>()
     const { data: product } = useGetSingleProductsByIDQuery(id);
 
-    const dispatch = useDispatch();
     const cartItems = useSelector((state: RootState) => state.cart.items);
-    // const [addToCart, {data, isLoading, error }] = useAddCartsMutation();
-    // console.log({data, isLoading, error});
+    const [addToCart, {data, isSuccess}] = useAddCartsMutation();
 
 
     // Check if product is already in the cart
@@ -36,27 +34,23 @@ const ProductDetails = () => {
             return;
         }
 
-        // addToCart({
-        //     productId: product?._id,
-        //     name: product?.name,
-        //     price: product?.price,
-        //     quantity,
-        //     stock: product?.stock,
-        // })
-
-        dispatch(addToCart({
+        addToCart({
             productId: product?._id,
             name: product?.name,
             price: product?.price,
             quantity,
             stock: product?.stock,
-        }));
-
-        notification.success({
-            message: "Success",
-            description: "Product added to cart.",
-        });
+        })
     };
+
+    useEffect(() => {
+        if (isSuccess && data?.message) {
+            notification.success({
+                message: "Success",
+                description: data.message,
+            });
+        }
+    }, [isSuccess, data]);
 
     // const handleIncreaseQuantity = () => {
     //     if (cartItem && cartItem.quantity < product?.stock) {
@@ -89,8 +83,8 @@ const ProductDetails = () => {
                     <h1 className="text-3xl font-bold">{product?.name}</h1>
                     <p className="my-4">{product?.description}</p>
                     <div className='flex items-center gap-6'>
+                        <span className="text-xl text-stone-900 font-bold">$ {product?.price}</span>
                         <RatingIcon rating={product?.rating} />
-                        <span className="text-xl text-orange-500 font-bold">${product?.price}</span>
                     </div>
 
                     <div className="mt-4 flex items-center">
