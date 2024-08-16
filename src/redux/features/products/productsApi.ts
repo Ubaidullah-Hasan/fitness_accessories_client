@@ -28,7 +28,7 @@ const productsApi = baseApi.injectEndpoints({
                     params: payload,
                     method: 'GET',
                 }
-            }
+            },
         }),
         getSingleProductsByID: builder.query({
             query: (payload) => {
@@ -36,7 +36,8 @@ const productsApi = baseApi.injectEndpoints({
                     url: `/products/${payload}`,
                     method: 'GET',
                 }
-            }
+            },
+            providesTags: (result, error, id) => [{ type: 'Product', id }],  
         }),
     }),
 })

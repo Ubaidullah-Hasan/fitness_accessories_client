@@ -13,8 +13,20 @@ const cartsApi = baseApi.injectEndpoints({
                     body: payload
                 }
             },
+            invalidatesTags: (result, error, { productId }) => [
+                'Cart',  
+                { type: 'Product', id: productId },  // Invalidate the specific Product tag to refetch the product data
+            ],
+
+        }),
+        getCarts: builder.query({
+            query: () => ({
+                url: `/carts`,
+                method: 'GET',
+            }),
+            providesTags: ['Cart'],
         }),
     }),
 })
 
-export const { useAddCartsMutation } = cartsApi
+export const { useAddCartsMutation, useGetCartsQuery } = cartsApi

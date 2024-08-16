@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import { TCartItem } from '../../redux/features/cart/cartSlice';
-import { useAddCartsMutation } from '../../redux/features/cart/cartsApi';
+import { useAddCartsMutation, useGetCartsQuery } from '../../redux/features/cart/cartsApi';
 import RatingIcon from '../../components/rating/RatingIcon';
 
 
@@ -18,7 +18,9 @@ const ProductDetails = () => {
     const { data: product } = useGetSingleProductsByIDQuery(id);
 
     const cartItems = useSelector((state: RootState) => state.cart.items);
-    const [addToCart, {data, isSuccess}] = useAddCartsMutation();
+    const [addToCart, { data: cartInsert, isSuccess }] = useAddCartsMutation();
+    const { data: carts } = useGetCartsQuery(undefined);
+    console.log(carts);
 
 
     // Check if product is already in the cart
@@ -44,13 +46,13 @@ const ProductDetails = () => {
     };
 
     useEffect(() => {
-        if (isSuccess && data?.message) {
+        if (isSuccess && cartInsert?.message) {
             notification.success({
                 message: "Success",
-                description: data.message,
+                description: cartInsert.message,
             });
         }
-    }, [isSuccess, data]);
+    }, [isSuccess, cartInsert]);
 
     // const handleIncreaseQuantity = () => {
     //     if (cartItem && cartItem.quantity < product?.stock) {
@@ -121,6 +123,7 @@ const ProductDetails = () => {
                     </p>
                 </div>
             </div>
+            <p className='text-lg text-red-500'>{carts?.length}</p>
         </div>
     );
 };
