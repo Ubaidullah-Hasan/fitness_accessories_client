@@ -1,11 +1,14 @@
-import { Menu } from "antd";
+import { Avatar, Badge, Menu } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { CiShoppingCart, CiUser } from "react-icons/ci";
 import { GoSearch } from "react-icons/go";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { useGetCartsQuery } from "../../redux/features/cart/cartsApi";
 
 const MainHeader = () => {
     const navigate = useNavigate();
+    const { data: carts } = useGetCartsQuery(undefined)
+
     // menu items
     const items = [
         {
@@ -62,9 +65,15 @@ const MainHeader = () => {
             />
             {/* right side */}
             <div className="flex items-center text-white space-x-4 text-xl">
-                <Link className="hover:!text-primary" to={""}><CiShoppingCart /></Link>
-                <Link className="hover:!text-primary" to={""}><GoSearch /></Link>
-                <Link className="hover:!text-primary" to={""} ><CiUser /></Link>
+                <div>
+                    <Link to={"/carts"}>
+                        <Badge size="small" count={carts?.totalCartsItem || 0}>
+                            <Avatar size="large" className="w-fit h-fit"><CiShoppingCart className="hover:!text-slate-200 text-[29px] mt-[-5px]" /></Avatar>
+                        </Badge>
+                    </Link>
+                </div>
+                <Link className="hover:!text-slate-200" to={""}><GoSearch /></Link>
+                <Link className="hover:!text-slate-200" to={""} ><CiUser /></Link>
             </div>
         </Header>
     );

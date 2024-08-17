@@ -4,8 +4,6 @@ import { useGetSingleProductsByIDQuery } from '../../redux/features/products/pro
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Button, notification } from 'antd';
 import { useParams } from 'react-router-dom';
-import { RootState } from '../../redux/store';
-import { useSelector } from 'react-redux';
 import { TCartItem } from '../../redux/features/cart/cartSlice';
 import { useAddCartsMutation, useGetCartsQuery } from '../../redux/features/cart/cartsApi';
 import RatingIcon from '../../components/rating/RatingIcon';
@@ -17,18 +15,20 @@ const ProductDetails = () => {
     const { id } = useParams<{ id: string }>()
     const { data: product } = useGetSingleProductsByIDQuery(id);
 
-    const cartItems = useSelector((state: RootState) => state.cart.items);
     const [addToCart, { data: cartInsert, isSuccess }] = useAddCartsMutation();
     const { data: carts } = useGetCartsQuery(undefined);
-    console.log(carts);
 
 
     // Check if product is already in the cart
-    const cartItem = cartItems.find((item: TCartItem) => item.productId === product?._id);
-    const isAddToCartDisabled = cartItem && cartItem.quantity >= product?.stock;
+    const cartItem = carts?.carts?.find((item: TCartItem) => item.productId === product?._id);
+    let isAddToCartDisabled = cartItem && cartItem.quantity > product?.stock;
+    
+
 
     const handleAddToCart = () => {
+        
         if (quantity > (product?.stock - (cartItem?.quantity || 0))) {
+            isAddToCartDisabled = cartItem && cartItem.quantity > product?.stock;
             notification.error({
                 message: "Error",
                 description: "Cannot add more than available stock.",
@@ -42,17 +42,20 @@ const ProductDetails = () => {
             price: product?.price,
             quantity,
             stock: product?.stock,
+            image: product?.image,
+            brand: product?.brand 
         })
     };
 
     useEffect(() => {
+
         if (isSuccess && cartInsert?.message) {
             notification.success({
                 message: "Success",
                 description: cartInsert.message,
             });
         }
-    }, [isSuccess, cartInsert]);
+    }, [isSuccess, cartInsert, isAddToCartDisabled]);
 
     // const handleIncreaseQuantity = () => {
     //     if (cartItem && cartItem.quantity < product?.stock) {
@@ -119,11 +122,10 @@ const ProductDetails = () => {
                     </div>
 
                     <p className="mt-2 text-sm text-gray-500">
-                        {product?.stock} items available
+                        {isAddToCartDisabled? "No" : product?.stock} items available
                     </p>
                 </div>
             </div>
-            <p className='text-lg text-red-500'>{carts?.length}</p>
         </div>
     );
 };
