@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useGetCartsQuery } from '../../redux/features/cart/cartsApi';
+import { useChangeCartQuantatyMutation, useGetCartsQuery } from '../../redux/features/cart/cartsApi';
 import SubTotal from './SubTotal';
 import { TCartItem } from '../../redux/features/cart/cartSlice';
 
@@ -8,14 +8,20 @@ const Cart = () => {
     const { data: carts } = useGetCartsQuery(undefined);
     console.log(carts?.carts);
 
-    // Helper functions for quantity change
-    const handleQuantityChange = (id: number, delta: number) => {
+    const [changeCartQuantaty, { data, isSuccess, error }] = useChangeCartQuantatyMutation(undefined);
 
+
+    const handleQuantity = (id: string, quantity: number) => {
+        changeCartQuantaty({
+            id: id,
+            quantity: quantity,
+        })
     };
+
 
     // Calculating subtotal
     const subtotal = carts?.carts?.reduce((total: number, item: TCartItem) => total + item.price * item.quantity, 0);
-    console.log(subtotal)
+    // console.log(subtotal)
 
     return (
         <div className=" bg-gray-100 pt-20">
@@ -35,12 +41,13 @@ const Cart = () => {
                                 </div>
                                 <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                                     <div className="flex items-center border-gray-100">
-                                        <span
-                                            className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                                            onClick={() => handleQuantityChange(item?._id, -1)}
+                                        <button
+                                            className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50 disabled:bg-gray-100 disabled:text-inherit"
+                                            onClick={() => handleQuantity(item?._id, -1)}
+                                            disabled={item?.quantity === 1}
                                         >
                                             -
-                                        </span>
+                                        </button>
                                         <input
                                             className="h-8 w-8 border bg-white text-center text-xs outline-none"
                                             type="number"
@@ -48,12 +55,13 @@ const Cart = () => {
                                             min="1"
                                             readOnly
                                         />
-                                        <span
+                                        <button
                                             className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                                            onClick={() => handleQuantityChange(item.id, 1)}
+                                            onClick={() => handleQuantity(item?._id, 1)}
+                                            disabled={item?.quantity === item.stock}
                                         >
                                             +
-                                        </span>
+                                        </button>
                                     </div>
                                     <div className="flex items-center space-x-4">
                                         <p className="text-sm">{item.price} ৳</p>

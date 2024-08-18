@@ -22,7 +22,6 @@ const productsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         getAllProducts: builder.query<TProduct[], undefined | string | TProductQueryParams>({
             query: (payload: TProductQueryParams) => {
-                // console.log(payload)
                 return {
                     url: `/products`,
                     params: payload,

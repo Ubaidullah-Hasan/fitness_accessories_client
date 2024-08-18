@@ -55,19 +55,9 @@ const ProductDetails = () => {
                 description: cartInsert.message,
             });
         }
-    }, [isSuccess, cartInsert, isAddToCartDisabled]);
+    }, [isSuccess, cartInsert]);
 
-    // const handleIncreaseQuantity = () => {
-    //     if (cartItem && cartItem.quantity < product?.stock) {
-    //         dispatch(increaseQuantity({ productId: product?._id }));
-    //     }
-    // };
-
-    // const handleDecreaseQuantity = () => {
-    //     if (cartItem && cartItem.quantity > 1) {
-    //         dispatch(decreaseQuantity({ productId: product?._id }));
-    //     }
-    // };
+    
 
 
     return (

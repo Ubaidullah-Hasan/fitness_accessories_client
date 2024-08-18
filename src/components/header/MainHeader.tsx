@@ -67,7 +67,7 @@ const MainHeader = () => {
             <div className="flex items-center text-white space-x-4 text-xl">
                 <div>
                     <Link to={"/carts"}>
-                        <Badge size="small" count={carts?.totalCartsItem || 0}>
+                        <Badge size="small" count={carts?.carts.length || 0}>
                             <Avatar size="large" className="w-fit h-fit"><CiShoppingCart className="hover:!text-slate-200 text-[29px] mt-[-5px]" /></Avatar>
                         </Badge>
                     </Link>

@@ -14,8 +14,8 @@ const cartsApi = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags: (result, error, { productId }) => [
-                'Cart',  
-                { type: 'Product', id: productId },  // Invalidate the specific Product tag to refetch the product data
+                'Cart',
+                { type: 'Product', id: productId },
             ],
 
         }),
@@ -26,7 +26,21 @@ const cartsApi = baseApi.injectEndpoints({
             }),
             providesTags: ['Cart'],
         }),
+        changeCartQuantaty: builder.mutation({
+            query: (payload) => {
+                console.log(payload);
+                return {
+                    url: `/carts/change-quantity/${payload.id}`,
+                    method: 'PATCH',
+                    body: payload,
+                }
+            },
+            invalidatesTags: (result, error, { productId }) => {
+                console.log(productId); 
+                return [{ type: 'Cart', id: productId }];
+            },
+        }),
     }),
 })
 
-export const { useAddCartsMutation, useGetCartsQuery } = cartsApi
+export const { useAddCartsMutation, useGetCartsQuery, useChangeCartQuantatyMutation } = cartsApi
