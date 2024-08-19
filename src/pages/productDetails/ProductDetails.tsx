@@ -4,8 +4,7 @@ import { useGetSingleProductsByIDQuery } from '../../redux/features/products/pro
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Button, notification } from 'antd';
 import { useParams } from 'react-router-dom';
-import { TCartItem } from '../../redux/features/cart/cartSlice';
-import { useAddCartsMutation, useGetCartsQuery } from '../../redux/features/cart/cartsApi';
+import { useAddCartsMutation } from '../../redux/features/cart/cartsApi';
 import RatingIcon from '../../components/rating/RatingIcon';
 
 
@@ -15,27 +14,10 @@ const ProductDetails = () => {
     const { id } = useParams<{ id: string }>()
     const { data: product } = useGetSingleProductsByIDQuery(id);
 
-    const [addToCart, { data: cartInsert, isSuccess }] = useAddCartsMutation();
-    const { data: carts } = useGetCartsQuery(undefined);
-
-
-    // Check if product is already in the cart
-    const cartItem = carts?.carts?.find((item: TCartItem) => item.productId === product?._id);
-    let isAddToCartDisabled = cartItem && cartItem.quantity > product?.stock;
-    
+    const [addToCart, { data: cartInsert, isSuccess }] = useAddCartsMutation();    
 
 
     const handleAddToCart = () => {
-        
-        if (quantity > (product?.stock - (cartItem?.quantity || 0))) {
-            isAddToCartDisabled = cartItem && cartItem.quantity > product?.stock;
-            notification.error({
-                message: "Error",
-                description: "Cannot add more than available stock.",
-            });
-            return;
-        }
-
         addToCart({
             productId: product?._id,
             name: product?.name,
@@ -43,7 +25,7 @@ const ProductDetails = () => {
             quantity,
             stock: product?.stock,
             image: product?.image,
-            brand: product?.brand 
+            brand: product?.brand
         })
     };
 
@@ -57,7 +39,7 @@ const ProductDetails = () => {
         }
     }, [isSuccess, cartInsert]);
 
-    
+
 
 
     return (
@@ -83,36 +65,18 @@ const ProductDetails = () => {
                     </div>
 
                     <div className="mt-4 flex items-center">
-                        {/* <Button
-                            icon={<MinusOutlined />}
-                            onClick={handleDecreaseQuantity}
-                            disabled={!cartItem || cartItem.quantity <= 1}
-                        /> */}
-                        {/* <InputNumber
-                            min={1}
-                            max={product?.stock - (cartItem?.quantity || 0)}
-                            value={cartItem?.quantity || quantity}
-                            onChange={(value) => setQuantity(value || 1)}
-                            className="mx-2"
-                        /> */}
-                        {/* <Button
-                            icon={<PlusOutlined />}
-                            onClick={handleIncreaseQuantity}
-                            disabled={isAddToCartDisabled}
-                        /> */}
-
                         <Button
                             type="primary"
                             icon={<ShoppingCartOutlined />}
                             onClick={handleAddToCart}
-                            disabled={isAddToCartDisabled}
+                            disabled={product?.stock === 0}
                         >
-                            {isAddToCartDisabled ? 'Out of Stock' : 'Add to Cart'}
+                            {product?.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
                         </Button>
                     </div>
 
                     <p className="mt-2 text-sm text-gray-500">
-                        {isAddToCartDisabled? "No" : product?.stock} items available
+                        {product?.stock === 0 ? "No" : product?.stock} items available
                     </p>
                 </div>
             </div>
