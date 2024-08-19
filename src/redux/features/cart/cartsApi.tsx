@@ -40,7 +40,17 @@ const cartsApi = baseApi.injectEndpoints({
                 return [{ type: 'Cart', id: productId }];
             },
         }),
+        removeCart: builder.mutation({
+            query: (payload) => {
+                console.log(payload); 
+                return {
+                    url: `/carts/${payload}`,
+                    method: 'DELETE',
+                }
+            },
+            invalidatesTags: ['Cart'],
+        })
     }),
 })
 
-export const { useAddCartsMutation, useGetCartsQuery, useChangeCartQuantatyMutation } = cartsApi
+export const { useAddCartsMutation, useGetCartsQuery, useChangeCartQuantatyMutation, useRemoveCartMutation } = cartsApi
