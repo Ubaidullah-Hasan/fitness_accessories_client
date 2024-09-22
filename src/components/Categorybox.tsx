@@ -6,7 +6,7 @@ type TCategoryProps = {
     setSelectedCategories: (v: string[]) => void,
 }
 
-const Categorybox = ({ selectedCategories, setSelectedCategories }) => {
+const Categorybox = ({ selectedCategories, setSelectedCategories }) => { // todo
     // todo: does not work
     const { data: categories } = useGetAllCategoriesQuery(undefined)
 

@@ -4,6 +4,7 @@ import { useGetAllProductsQuery } from "../../../redux/features/products/product
 
 const FeaturedProduct = () => {
     const { data: products } = useGetAllProductsQuery({ sort: "desc", limit: 4 });
+    console.log(products)
 
     return (
         <div className="section">

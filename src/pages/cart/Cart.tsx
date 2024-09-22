@@ -5,6 +5,7 @@ import { TCartItem } from '../../redux/features/cart/cartSlice';
 import LoadingOverlay from 'react-loading-overlay';
 import cleanImg from "../../assets/clean.gif"
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const Cart = () => {
     const [shipping, setShipping] = useState<number>(0);
@@ -27,7 +28,19 @@ const Cart = () => {
     
 
     const removeCartHandle = (id: string,) => {
-        removeCart(id);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                removeCart(id);
+            }
+        });
     };
 
 

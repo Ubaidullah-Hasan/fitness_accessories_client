@@ -27,6 +27,7 @@ const ProductDetails = () => {
             image: product?.image,
             brand: product?.brand
         })
+        
     };
 
     useEffect(() => {
@@ -35,6 +36,7 @@ const ProductDetails = () => {
             notification.success({
                 message: "Success",
                 description: cartInsert.message,
+                placement: "top"
             });
         }
     }, [isSuccess, cartInsert]);

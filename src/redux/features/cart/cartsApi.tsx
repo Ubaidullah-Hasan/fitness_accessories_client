@@ -13,10 +13,7 @@ const cartsApi = baseApi.injectEndpoints({
                     body: payload
                 }
             },
-            invalidatesTags: (result, error, { productId }) => [
-                'Cart',
-                { type: 'Product', id: productId },
-            ],
+            invalidatesTags: ["cart"]  
 
         }),
         getCarts: builder.query({
@@ -24,7 +21,7 @@ const cartsApi = baseApi.injectEndpoints({
                 url: `/carts`,
                 method: 'GET',
             }),
-            providesTags: ['Cart'],
+            providesTags: ["cart"]  
         }),
         changeCartQuantaty: builder.mutation({
             query: (payload) => {
@@ -34,7 +31,7 @@ const cartsApi = baseApi.injectEndpoints({
                     body: payload,
                 };
             },
-            invalidatesTags: [{ type: 'Cart' }],  
+            invalidatesTags: ["cart"]  // todo: cart quantity does not change
         }),
 
         removeCart: builder.mutation({
@@ -44,7 +41,7 @@ const cartsApi = baseApi.injectEndpoints({
                     method: 'DELETE',
                 }
             },
-            invalidatesTags: [{ type: 'Cart'}],
+            invalidatesTags: ["cart"]  
         })
     }),
 })
