@@ -28,27 +28,23 @@ const cartsApi = baseApi.injectEndpoints({
         }),
         changeCartQuantaty: builder.mutation({
             query: (payload) => {
-                console.log(payload);
                 return {
                     url: `/carts/change-quantity/${payload.id}`,
                     method: 'PATCH',
                     body: payload,
-                }
+                };
             },
-            invalidatesTags: (result, error, { productId }) => {
-                console.log(productId); 
-                return [{ type: 'Cart', id: productId }];
-            },
+            invalidatesTags: [{ type: 'Cart' }],  
         }),
+
         removeCart: builder.mutation({
             query: (payload) => {
-                console.log(payload); 
                 return {
                     url: `/carts/${payload}`,
                     method: 'DELETE',
                 }
             },
-            invalidatesTags: ['Cart'],
+            invalidatesTags: [{ type: 'Cart'}],
         })
     }),
 })

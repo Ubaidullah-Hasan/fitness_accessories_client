@@ -4,10 +4,16 @@ import { CiShoppingCart, CiUser } from "react-icons/ci";
 import { GoSearch } from "react-icons/go";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useGetCartsQuery } from "../../redux/features/cart/cartsApi";
+import './M.css'
 
 const MainHeader = () => {
     const navigate = useNavigate();
-    const { data: carts } = useGetCartsQuery(undefined)
+    const { data: carts } = useGetCartsQuery(undefined);
+
+    const paths = [
+        {path: "products", index: 1},
+        {path: "products", index: 1},
+    ] // todo
 
     // menu items
     const items = [
@@ -20,28 +26,15 @@ const MainHeader = () => {
             label: <NavLink to={"/products"}>Product</NavLink>
         },
         {
-            key: "About",
-            label: <NavLink to={"/"}>Contact</NavLink>,
-            children: [
-                {
-                    key: "a",
-                    label: <NavLink to={"/"}>Home</NavLink>
-                },
-                {
-                    key: "2",
-                    label: <NavLink to={"/2"}>Home</NavLink>
-                },
-            ]
-        },
-        {
             key: "Contact",
-            label: <NavLink to={"/"}>About</NavLink>
+            label: <NavLink to={"/contacts"}>About</NavLink>
         },
     ]
 
     const handleLogo = () => {
         navigate("/");
     }
+
 
 
     return (
@@ -55,14 +48,16 @@ const MainHeader = () => {
                 <span className="text-primary font-extrabold">M</span>
                 <span className="font-extrabold">IX</span>
             </div>
+
             <Menu
                 theme="dark"
                 mode="horizontal"
                 defaultSelectedKeys={['2']}
                 items={items}
                 style={{ flex: 1, minWidth: 0, justifyContent: "center" }}
-                className=" bg-secondary"
+                className="custom-menu bg-secondary"
             />
+
             {/* right side */}
             <div className="flex items-center text-white space-x-4 text-xl">
                 <div>

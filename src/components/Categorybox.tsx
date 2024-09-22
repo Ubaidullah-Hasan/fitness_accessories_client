@@ -1,10 +1,10 @@
 import { Flex, Spin } from 'antd';
 import { useGetAllCategoriesQuery } from '../redux/features/categories/categoriesApi';
 
-// type TCategoryProps = {
-//     selectedCategories: string[],
-//     setSelectedCategories: (v: string[]) => void,
-// }
+type TCategoryProps = {
+    selectedCategories: string[],
+    setSelectedCategories: (v: string[]) => void,
+}
 
 const Categorybox = ({ selectedCategories, setSelectedCategories }) => {
     // todo: does not work

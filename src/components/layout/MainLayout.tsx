@@ -4,12 +4,9 @@ import MainHeader from "../header/MainHeader";
 import TopHeader from "../header/TopHeader";
 import { Outlet } from "react-router-dom";
 import MainFooter from "../MainFooter";
-
+        
 
 const MainLayout = () => {
-
-
-
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();

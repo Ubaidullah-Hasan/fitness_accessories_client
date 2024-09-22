@@ -1,6 +1,6 @@
 import { baseApi } from "../../api/basiApi";
 
-type TCategories = {
+export type TCategories = {
     _id: string,
     categoriName: string;
     image: string;

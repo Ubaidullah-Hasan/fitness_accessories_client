@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useChangeCartQuantatyMutation, useGetCartsQuery, useRemoveCartMutation } from '../../redux/features/cart/cartsApi';
 import SubTotal from './SubTotal';
 import { TCartItem } from '../../redux/features/cart/cartSlice';
@@ -10,17 +10,21 @@ const Cart = () => {
     const [shipping, setShipping] = useState<number>(0);
     const { data: carts } = useGetCartsQuery(undefined);
     const navigate = useNavigate();
+    // console.log(carts?.carts);
 
     const [changeCartQuantaty] = useChangeCartQuantatyMutation(undefined);
-    const [removeCart, { data: reCart, isLoading: isLoadingCart }] = useRemoveCartMutation(undefined);
-    console.log(reCart, isLoadingCart);
+    const [removeCart, { isLoading: isLoadingCart }] = useRemoveCartMutation(undefined);
 
+    
     const handleQuantity = (id: string, quantity: number) => {
         changeCartQuantaty({
             id: id,
             quantity: quantity,
         })
     };
+
+    
+    
 
     const removeCartHandle = (id: string,) => {
         removeCart(id);

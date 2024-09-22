@@ -27,7 +27,7 @@ const ProductCard = ({ product, isPrice = false, col = 4 }: TProductProps) => {
 
 
     return (
-        <div className={`border w-[${100 / col}%]`}>
+        <div className={`border w-[${100 / col}%] h-[340px]`}>
             <div>
                 <InnerImageZoom
                     src={product?.image}

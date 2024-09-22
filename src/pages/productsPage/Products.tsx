@@ -7,6 +7,7 @@ import SearchBox from "../../components/SearchBox";
 import ShortPrice from "../../components/ShortPrice";
 import { useGetAllProductsQuery } from "../../redux/features/products/productsApi";
 import { Flex, Spin } from "antd";
+import { useLocation } from "react-router-dom";
 
 export type TSort = 'asc' | 'desc' | '';
 
@@ -15,8 +16,9 @@ const Products = () => {
     const [searchTerm, setSearchTerm] = useState<string>('');
     const [sortOrder, setSortOrder] = useState<TSort>('');
     const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]);
-    const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-
+    const location = useLocation();
+    const categoryId = location?.state?.categoryId || "";
+    const [selectedCategories, setSelectedCategories] = useState<string[]>([categoryId]);
 
     const query = {
         searchTerm,
@@ -34,7 +36,7 @@ const Products = () => {
     }
 
     const { data: products } = useGetAllProductsQuery(query);
-    console.log(products, "products");
+    // console.log(products, "products");
 
 
     return (
