@@ -32,6 +32,7 @@ const CheckOut = () => {
         }else{
             localStorage.setItem("carts", "null");
         }
+        console.log(orderSuccessfull)
     }; 
 
     return (

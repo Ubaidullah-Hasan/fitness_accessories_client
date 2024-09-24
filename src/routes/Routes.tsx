@@ -5,6 +5,7 @@ import Products from '../pages/productsPage/Products';
 import ProductDetails from '../pages/productDetails/ProductDetails';
 import Cart from '../pages/cart/Cart';
 import CheckOut from '../pages/checkout/CheckOut';
+import CheckOutProtected from '../protectedRoutes/CheckOutProtected';
 
 const router = createBrowserRouter([
     {
@@ -33,7 +34,9 @@ const router = createBrowserRouter([
             },
             {
                 path: "/checkout",
-                element: <CheckOut />
+                element: <CheckOutProtected>
+                    <CheckOut />
+                </CheckOutProtected>
             }
         ]
     },
