@@ -4,14 +4,17 @@ import SectionTitle from '../../components/SectionTitle';
 import CheckOutCart from '../../components/CheckOutCart';
 import { TCartItem } from '../../types';
 import { paymentApi } from '../../redux/features/payment/paymentApi';
+import { useNavigate } from 'react-router-dom';
 
 const CheckOut = () => {
+    const navigate = useNavigate();
     const [form] = Form.useForm();
     const cartsInfo = JSON.parse(localStorage.getItem('carts') || "{}");
     const carts = (cartsInfo?.carts);
     const [createPayment, { isSuccess: orderSuccessfull }] = paymentApi.useCreatePaymentMutation();
 
     const onFinish = async(values: any) => {
+        
         const paymentInfo = {
             productId: carts?.map((cart: TCartItem) => ({
                 id: cart.productId._id,
@@ -30,6 +33,7 @@ const CheckOut = () => {
                 placement: "top",
             })
         }else{
+            navigate("/checkout/success");
             localStorage.setItem("carts", "null");
         }
         console.log(orderSuccessfull)
