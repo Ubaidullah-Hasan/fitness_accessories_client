@@ -1,22 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useChangeCartQuantatyMutation, useGetCartsQuery, useRemoveCartMutation } from '../../redux/features/cart/cartsApi';
 import SubTotal from './SubTotal';
-import { TCartItem } from '../../redux/features/cart/cartSlice';
 import LoadingOverlay from 'react-loading-overlay';
 import cleanImg from "../../assets/clean.gif"
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { notification } from 'antd';
+import { TCartItem } from '../../types';
 
 const Cart = () => {
     const [shipping, setShipping] = useState<number>(0);
     const { data: carts } = useGetCartsQuery(undefined);
     const navigate = useNavigate();
-    // console.log(carts?.carts);
 
-    const [changeCartQuantaty] = useChangeCartQuantatyMutation(undefined);
+    const [changeCartQuantaty, { error, isLoading: changingQuantaty }] = useChangeCartQuantatyMutation(undefined);
     const [removeCart, { isLoading: isLoadingCart }] = useRemoveCartMutation(undefined);
 
-    
+
     const handleQuantity = (id: string, quantity: number) => {
         changeCartQuantaty({
             id: id,
@@ -24,8 +25,18 @@ const Cart = () => {
         })
     };
 
-    
-    
+    useEffect(() => {
+        if (error) {
+            notification.error({
+                message: 'Stock Limit',
+                description: error.data.message,
+                placement: 'top'
+            });
+        }
+    }, [error]);
+
+
+
 
     const removeCartHandle = (id: string,) => {
         Swal.fire({
@@ -55,6 +66,15 @@ const Cart = () => {
                         active={true}
                         spinner
                         text='Deleting...'
+                    />
+                </div>
+            )}
+            {changingQuantaty && (
+                <div className="absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <LoadingOverlay
+                        active={true}
+                        spinner
+                        text='Updating...'
                     />
                 </div>
             )}
@@ -94,7 +114,6 @@ const Cart = () => {
                                                     <button
                                                         className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
                                                         onClick={() => handleQuantity(item?._id, 1)}
-                                                        disabled={item?.quantity === item.stock}
                                                     >
                                                         +
                                                     </button>
@@ -138,7 +157,7 @@ const Cart = () => {
                         }
                     </div>
                     {/* Sub total */}
-                    <SubTotal subtotal={subtotal} shipping={shipping} />
+                    <SubTotal subtotal={subtotal} shipping={shipping} carts={carts?.carts} />
                 </div>
             </div>
         </div>

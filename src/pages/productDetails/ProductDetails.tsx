@@ -15,6 +15,7 @@ const ProductDetails = () => {
     const { data: product } = useGetSingleProductsByIDQuery(id);
 
     const [addToCart, { data: cartInsert, isSuccess }] = useAddCartsMutation();    
+      
 
 
     const handleAddToCart = () => {

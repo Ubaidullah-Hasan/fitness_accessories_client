@@ -1,8 +1,7 @@
 import { baseApi } from "../../api/basiApi";
 
 
-
-const cartsApi = baseApi.injectEndpoints({
+export const cartsApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         addCarts: builder.mutation({
             query: (payload) => {
@@ -13,7 +12,7 @@ const cartsApi = baseApi.injectEndpoints({
                     body: payload
                 }
             },
-            invalidatesTags: ["cart"]  
+            invalidatesTags: ["cart"]
 
         }),
         getCarts: builder.query({
@@ -21,7 +20,7 @@ const cartsApi = baseApi.injectEndpoints({
                 url: `/carts`,
                 method: 'GET',
             }),
-            providesTags: ["cart"]  
+            providesTags: ["cart"]
         }),
         changeCartQuantaty: builder.mutation({
             query: (payload) => {
@@ -41,9 +40,10 @@ const cartsApi = baseApi.injectEndpoints({
                     method: 'DELETE',
                 }
             },
-            invalidatesTags: ["cart"]  
+            invalidatesTags: ["cart"]
         })
     }),
 })
 
-export const { useAddCartsMutation, useGetCartsQuery, useChangeCartQuantatyMutation, useRemoveCartMutation } = cartsApi
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const { useAddCartsMutation, useGetCartsQuery, useChangeCartQuantatyMutation, useRemoveCartMutation }: any = cartsApi
