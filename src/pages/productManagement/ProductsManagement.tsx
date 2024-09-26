@@ -1,21 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Table, Button, Modal, Form, Input, InputNumber, message, Popconfirm, Select } from 'antd';
-import { useCreateProductMutation, useDeleteProductMutation, useGetAllProductsQuery } from '../../redux/features/products/productsApi';
+import { useCreateProductMutation, useDeleteProductMutation, useGetAllProductsQuery, useUpdateProductMutation } from '../../redux/features/products/productsApi';
 import { IoMdAdd } from 'react-icons/io';
 import { useGetAllCategoriesQuery } from '../../redux/features/categories/categoriesApi';
+import { TProduct } from '../../types';
 
 
 const ProductsManagement = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [editingProduct, setEditingProduct] = useState(null);
+    const [editingProduct, setEditingProduct] = useState<null | TProduct>(null);
+
 
     const { data: categories } = useGetAllCategoriesQuery(undefined);
     const { data: products, isLoading: productsLoading } = useGetAllProductsQuery();
 
-    // Mutations for adding, updating, and deleting products
-    const [createProduct, { data, isLoading: creatingProduct }] = useCreateProductMutation();
-    const [deleteProduct, { isLoading: deletingProduct }] = useDeleteProductMutation();
+    const [createProduct, { isLoading: creatingProduct }] = useCreateProductMutation();
+    const [deleteProduct] = useDeleteProductMutation();
+
+    const [updateProduct, { isLoading: updating }] = useUpdateProductMutation();
 
 
     const categoryOptions = categories?.map(category => ({
@@ -24,12 +27,22 @@ const ProductsManagement = () => {
     }))
 
 
-    const productsOptions = products?.map((p: { _id: any, name: any; price: any; categoryId: { categoriName: any; }; }) => ({
+    const productsOptions = products?.map((p: {
+        _id: any; name: any; price: any; categoryId: {
+            _id: any; categoriName: any;
+        }; stock: any; image: any; description: any; brand: any;
+    }) => ({
         key: p?._id,
         name: p?.name,
         price: p?.price,
-        categoryId: p?.categoryId?.categoriName
+        category: p?.categoryId?.categoriName,
+        stock: p?.stock,
+        image: p?.image,
+        description: p?.description,
+        brand: p?.brand,
+        categoryId: p?.categoryId?._id
     }))
+
     // Columns for the product table
     const columns = [
         {
@@ -45,8 +58,8 @@ const ProductsManagement = () => {
         },
         {
             title: 'Category',
-            dataIndex: 'categoryId',
-            key: 'categoryId',
+            dataIndex: 'category',
+            key: 'category',
         },
         {
             title: 'Actions',
@@ -73,24 +86,28 @@ const ProductsManagement = () => {
     };
 
     const showUpdateModal = (product: any) => {
-        setEditingProduct(product);
+        setEditingProduct({ ...product, categoryId: product.categoryId });
         setIsModalVisible(true);
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
         setEditingProduct(null);
+        window.location.reload();
     };
+
 
     // Submit form for adding or updating product
     const onFinish = async (values: any) => {
-        console.log(values);
         if (editingProduct) {
-            // updateProductMutation.mutate({ ...editingProduct, ...values });
+            const updatedData = { id: editingProduct.key, payload: values }
+            updateProduct(updatedData);
+            window.location.reload();
         } else {
             const res = await createProduct(values);
             if (res.data) {
                 message.success('Product added successfully!');
+                window.location.reload();
             }
             if (res.error) {
                 message.error('Something went wrong!');
@@ -102,7 +119,6 @@ const ProductsManagement = () => {
 
     // Handle deleting a product
     const handleDelete = (id: string) => {
-        console.log({ id });
         deleteProduct(id);
     };
 
@@ -185,7 +201,7 @@ const ProductsManagement = () => {
                         <Input.TextArea rows={3} />
                     </Form.Item>
 
-                    <Button type="primary" htmlType="submit" loading={creatingProduct}>
+                    <Button type="primary" htmlType="submit" loading={creatingProduct || updating}>
                         {editingProduct ? 'Update' : 'Add'} Product
                     </Button>
                 </Form>

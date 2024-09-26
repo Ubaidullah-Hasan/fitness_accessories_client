@@ -1,6 +1,7 @@
 import ProductCard from "../../../components/ProductCard";
 import SectionTitle from "../../../components/SectionTitle";
 import { useGetAllProductsQuery } from "../../../redux/features/products/productsApi";
+import { TProduct } from "../../../types";
 
 const FeaturedProduct = () => {
     const { data: products } = useGetAllProductsQuery({ sort: "desc", limit: 4 });
@@ -15,7 +16,7 @@ const FeaturedProduct = () => {
 
             <div className="flex gap-1 mx-4">
                 {
-                    products?.map(product => <ProductCard
+                    products?.map((product:TProduct) => <ProductCard
                         key={product?._id}
                         product={product}
                     />)
