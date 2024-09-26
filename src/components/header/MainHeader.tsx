@@ -27,7 +27,7 @@ const MainHeader = () => {
         },
         {
             key: "Contact",
-            label: <NavLink to={"/contacts"}>About</NavLink>
+            label: <NavLink to={"/about"}>About</NavLink>
         },
     ]
 
@@ -67,8 +67,8 @@ const MainHeader = () => {
                         </Badge>
                     </Link>
                 </div>
-                <Link className="hover:!text-slate-200" to={""}><GoSearch /></Link>
-                <Link className="hover:!text-slate-200" to={""} ><CiUser /></Link>
+                <Link className="text-white hover:text-slate-300" to={""}><GoSearch /></Link>
+                <Link className="text-white hover:text-slate-300" to={""} ><CiUser /></Link>
             </div>
         </Header>
     );
