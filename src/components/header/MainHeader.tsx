@@ -26,6 +26,10 @@ const MainHeader = () => {
             label: <NavLink to={"/products"}>Product</NavLink>
         },
         {
+            key: "ProductManagement",
+            label: <NavLink to={"/products-management"}>Product Management</NavLink>
+        },
+        {
             key: "Contact",
             label: <NavLink to={"/about"}>About</NavLink>
         },

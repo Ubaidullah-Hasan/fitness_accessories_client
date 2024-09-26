@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { baseApi } from "../../api/basiApi";
 
 export type TProduct = {
@@ -39,7 +40,26 @@ const productsApi = baseApi.injectEndpoints({
             },
             providesTags: ["product", "cart"],  
         }),
+        createProduct: builder.mutation({
+            query: (payload) => {
+                return {
+                    url: "/products",
+                    method: 'POST',
+                    body: payload
+                }
+            },
+            invalidatesTags: ["product"]
+        }),
+        deleteProduct: builder.mutation({
+            query: (id) => {
+                return {
+                    url: `/products/${id}`,
+                    method: 'DELETE',
+                }
+            },
+            invalidatesTags: ["product"]
+        })
     }),
 })
 
-export const { useGetAllProductsQuery, useGetSingleProductsByIDQuery } = productsApi
+export const { useGetAllProductsQuery, useGetSingleProductsByIDQuery, useCreateProductMutation, useDeleteProductMutation }: any = productsApi

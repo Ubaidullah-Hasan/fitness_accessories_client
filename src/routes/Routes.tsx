@@ -8,6 +8,7 @@ import CheckOut from '../pages/checkout/CheckOut';
 import CheckOutProtected from '../protectedRoutes/CheckOutProtected';
 import Success from '../pages/Success/Success';
 import About from '../pages/about/About';
+import ProductsManagement from '../pages/productManagement/ProductsManagement';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
             {
                 path: "/products",
                 element: <Products />,
+            },
+            {
+                path: "/products-management",
+                element: <ProductsManagement />,
             },
             {
                 path: "/products/:id",
