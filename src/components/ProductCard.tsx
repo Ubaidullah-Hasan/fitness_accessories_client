@@ -27,14 +27,14 @@ const ProductCard = ({ product, isPrice = false, col = 4 }: TProductProps) => {
 
 
     return (
-        <div className={`border w-[${100 / col}%] h-[340px]`}>
+        <div className={`border w-[${100 / col}%] lg:h-[300px] xl:h-[340px]`}>
             <div>
                 <InnerImageZoom
                     src={product?.image}
                     zoomSrc={product?.image}
                     zoomType="hover"
                     zoomPreload={true}
-                    className='h-[205px] object-cover mb-[-20px] !block'
+                    className='lg:h-[130px] xl:h-[205px] object-cover mb-[-20px] !block'
                 />
             </div>
             <div className='p-2 border-t'>

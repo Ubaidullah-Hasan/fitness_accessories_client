@@ -8,6 +8,7 @@ import ShortPrice from "../../components/ShortPrice";
 import { useGetAllProductsQuery } from "../../redux/features/products/productsApi";
 import { Flex, Spin } from "antd";
 import { useLocation } from "react-router-dom";
+import { TProduct } from "../../types";
 
 export type TSort = 'asc' | 'desc' | '';
 
@@ -40,7 +41,7 @@ const Products = () => {
 
 
     return (
-        <div className="grid grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-4 gap-8">
             <div className="col-span-1 p-4 space-y-7">
                 <SearchBox setSearchTerm={setSearchTerm} />
 
@@ -52,10 +53,10 @@ const Products = () => {
 
                 <ClearFilter handleFilter={handleFilter} />
             </div>
-            <div className="col-span-3 grid grid-cols-3 gap-3 p-4">
+            <div className="grid col-span-3 md:grid-cols-2 lg:grid-cols-3 gap-3 p-4">
                 {
                     products ?
-                        products?.map(product => (
+                        products?.map((product: TProduct) => (
                             <ProductCard
                                 isPrice={true}
                                 key={product?._id}
