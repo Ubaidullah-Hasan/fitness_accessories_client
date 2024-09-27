@@ -5,32 +5,41 @@ import { GoSearch } from "react-icons/go";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useGetCartsQuery } from "../../redux/features/cart/cartsApi";
 import './M.css'
+import { useState } from "react";
 
 const MainHeader = () => {
     const navigate = useNavigate();
     const { data: carts } = useGetCartsQuery(undefined);
+    const [menuKey] = useState<string | void>(menuKeySet)
 
-    const paths = [
-        {path: "products", index: 1},
-        {path: "products", index: 1},
-    ] // todo
+    function menuKeySet() {
+        const paths = [
+            { path: "/", index: "1" },
+            { path: "/products", index: "2" },
+            { path: "/products-management", index: "3" },
+            { path: "/about", index: "4" },
+        ];
+
+        const matchedPath = paths.find((item) => item?.path.match(new RegExp(`^${location.pathname}$`)));
+        return matchedPath ? matchedPath.index : undefined;  
+    }
 
     // menu items
     const items = [
         {
-            key: "Home",
+            key: 1,
             label: <NavLink to={"/"}>Home</NavLink>
         },
         {
-            key: "Product",
+            key: 2,
             label: <NavLink to={"/products"}>Product</NavLink>
         },
         {
-            key: "ProductManagement",
+            key: 3,
             label: <NavLink to={"/products-management"}>Product Management</NavLink>
         },
         {
-            key: "Contact",
+            key: 4,
             label: <NavLink to={"/about"}>About</NavLink>
         },
     ]
@@ -56,7 +65,7 @@ const MainHeader = () => {
             <Menu
                 theme="dark"
                 mode="horizontal"
-                defaultSelectedKeys={['2']}
+                defaultSelectedKeys={[menuKey as string]}
                 items={items}
                 style={{ flex: 1, minWidth: 0, justifyContent: "center" }}
                 className="custom-menu bg-secondary"

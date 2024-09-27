@@ -16,9 +16,10 @@ const Categories = () => {
             <SectionTitle
                 title={"Fitness Gear"}
                 subtitle="Find essential Fitness Gear for your workouts. From weights to bands, we' ve got you covered."
+                className='px-5'
             />
 
-            <div className='grid grid-cols-4 gap-4 mt-8 px-4'>
+            <div className='grid lg:grid-cols-4 md:grid-cols-2 gap-4 mt-8 px-4'>
 
                 {
                     categories?.map(category =>

@@ -130,12 +130,12 @@ const ProductsManagement = () => {
                     Add New Product
                 </Button>
             </div>
-            <Table dataSource={productsOptions} columns={columns} rowKey="id" loading={productsLoading} />
+            <Table dataSource={productsOptions} columns={columns} loading={productsLoading} />
 
             {/* Add/Update Product Modal */}
             <Modal
                 title={editingProduct ? 'Update Product' : 'Add Product'}
-                visible={isModalVisible}
+                open={isModalVisible}
                 onCancel={handleCancel}
                 footer={null}
             >

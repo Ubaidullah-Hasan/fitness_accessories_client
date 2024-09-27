@@ -15,7 +15,7 @@ const MainLayout = () => {
         <Layout>
             <TopHeader />
             <MainHeader />
-            <Content style={{ padding: '0 48px', marginTop: "20px", marginBottom:"20px" }}>
+            <Content className="xl:px-12 my-5">
                 <div
                     style={{
                         background: colorBgContainer,

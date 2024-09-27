@@ -70,7 +70,7 @@ const ImageGallary = ({ dataOfImages }: TDataProps) => {
 
 
     return (
-        <div className="mx-4 rounded-[20px] overflow-hidden h-[500px] shadow-lg">
+        <div className="mx-4 rounded-[20px] overflow-hidden xl:max-h-[700px] lg:max-h-[500px] md:max-h-[400px] max-h-[180px] shadow-lg">
             {
                 images.length &&
                 <Gallery photos={images} direction={"column"} columns={4} />

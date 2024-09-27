@@ -22,9 +22,9 @@ const benefits = [
 
 const BenefitsSection = () => { // todo
     return (
-        <div className='section' style={{ padding: '50px 0' }}>
+        <div className='section'>
             <Title level={2} style={{ textAlign: 'center', marginBottom: '40px' }}>Benefits of Our Products</Title>
-            <Row gutter={[24, 24]} justify="center" className='px-4'>
+            <Row gutter={[10, 10]} justify="center" className='px-4'>
                 {benefits.map((benefit, index) => (
                     <Col xs={24} sm={12} md={8} key={index}>
                         <Card

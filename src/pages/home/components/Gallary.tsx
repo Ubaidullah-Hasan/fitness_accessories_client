@@ -17,6 +17,7 @@ const Gallary = () => {
             <SectionTitle
                 title='Our Happy Customers'
                 subtitle='See how our products have transformed lives'
+                className='w-[80%] sm:w-full mx-auto'
             />
 
             <ImageGallary
