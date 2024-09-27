@@ -75,7 +75,6 @@ const ImageGallary = ({ dataOfImages }: TDataProps) => {
         <div className="mx-4 rounded-[20px] overflow-hidden  md:max-h-[700px] ">
             {
                 images.length &&
-                // <div>Image Gallery</div>
                 <ImageGallaryAlbum images={images} />
             }
         </div>

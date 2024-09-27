@@ -42,5 +42,5 @@ git clone https://github.com/Ubaidullah-Hasan/fitness_accessories_client.git
 
 ## Live URL
 
-<!-- The Car Wash Booking System is deployed and can be accessed at:
-[]() -->
+The Car Wash Booking System is deployed and can be accessed at:
+[https://fitness-accessories-client.vercel.app/](https://fitness-accessories-client.vercel.app/)
