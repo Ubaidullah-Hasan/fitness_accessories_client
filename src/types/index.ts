@@ -9,7 +9,7 @@ export type TCartItem = {
     brand?: string;
 };
 export type TProduct = {
-    key: any;
+    key: string;
     _id: string;
     name: string;
     description: string;

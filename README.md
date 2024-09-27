@@ -1,30 +1,46 @@
-# React + TypeScript + Vite
+# GYMIX - Client
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Introduction
 
-Currently, two official plugins are available:
+Welcome to the Gymix fitness accessories shop! This shop allows users to choose GYM accessories, and book it. Everyone can manage products. The client is built using TypeScript, React, and Redux.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- CRUD operations for products and categories
+- Booking, and cart management
+- Error handling and input validation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Technology Stack
 
-- Configure the top-level `parserOptions` property like this:
+- TypeScript
+- Redux
+- React
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+## Prerequisites
+
+Before you begin, ensure you have met the following requirements:
+
+- Node.js (v12 or later)
+- npm (v6 or later)
+
+## Installation
+
+### Step 1: Clone the repository
+
+
+```bash
+git clone https://github.com/Ubaidullah-Hasan/fitness_accessories_client.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Following steps
+* Open the repository in a code editor
+* Open terminal or command prompt then write <code>npm install</code>
+  
+<b> Run these command for spacific output </b>
+  * <code> npm run dev </code> for ts file server running in development mode
+  * <code> npm run build </code> for convert ts to js
+
+## Live URL
+
+<!-- The Car Wash Booking System is deployed and can be accessed at:
+[]() -->

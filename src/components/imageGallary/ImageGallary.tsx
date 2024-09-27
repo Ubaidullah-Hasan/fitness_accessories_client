@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Gallery from "react-photo-gallery";
+import ImageGallaryAlbum from "../ImageGalleryAlbum";
 
 type TOrientation = 'landscape' | 'portrait';
 
@@ -68,12 +68,15 @@ const ImageGallary = ({ dataOfImages }: TDataProps) => {
         fetchData();
     }, [dataOfImages]);
 
+    console.log(images)
+
 
     return (
-        <div className="mx-4 rounded-[20px] overflow-hidden xl:max-h-[700px] lg:max-h-[500px] md:max-h-[400px] max-h-[180px] shadow-lg">
+        <div className="mx-4 rounded-[20px] overflow-hidden  md:max-h-[700px] ">
             {
                 images.length &&
-                <Gallery photos={images} direction={"column"} columns={4} />
+                // <div>Image Gallery</div>
+                <ImageGallaryAlbum images={images} />
             }
         </div>
     );

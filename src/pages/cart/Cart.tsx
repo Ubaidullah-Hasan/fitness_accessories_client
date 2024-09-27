@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 import { useChangeCartQuantatyMutation, useGetCartsQuery, useRemoveCartMutation } from '../../redux/features/cart/cartsApi';
 import SubTotal from './SubTotal';
-import LoadingOverlay from 'react-loading-overlay';
 import cleanImg from "../../assets/clean.gif"
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
@@ -10,7 +8,7 @@ import { notification } from 'antd';
 import { TCartItem } from '../../types';
 
 const Cart = () => {
-    const [shipping, setShipping] = useState<number>(0);
+    const [shipping] = useState<number>(0);
     const { data: carts } = useGetCartsQuery(undefined);
     const navigate = useNavigate();
 
@@ -62,20 +60,16 @@ const Cart = () => {
         <div className="relative">
             {isLoadingCart && (
                 <div className="absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <LoadingOverlay
-                        active={true}
-                        spinner
-                        text='Deleting...'
-                    />
+                    <div className='text-white'>
+                        Removing...
+                    </div>
                 </div>
             )}
             {changingQuantaty && (
                 <div className="absolute inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <LoadingOverlay
-                        active={true}
-                        spinner
-                        text='Updating...'
-                    />
+                    <div className='text-white'>
+                        Updating...
+                    </div>
                 </div>
             )}
             <div className=" bg-gray-100 pt-20">
@@ -166,3 +160,19 @@ const Cart = () => {
 };
 
 export default Cart;
+
+
+// "node_modules/react-loading-overlay": {
+//     "version": "1.0.1",
+//         "resolved": "https://registry.npmjs.org/react-loading-overlay/-/react-loading-overlay-1.0.1.tgz",
+//             "integrity": "sha512-aUjtZ8tNXBSx+MbD2SQs0boPbeTAGTh+I5U9nWjDzMasKlYr58RJpr57c8W7uApeLpOkAGbInExRi6GamNC2bA==",
+//                 "dependencies": {
+//         "emotion": "^10.0.1",
+//             "prop-types": "^15.6.2",
+//                 "react-transition-group": "^2.5.0"
+//     },
+//     "peerDependencies": {
+//         "react": "^0.14 || ^15.0.0-rc || ^15.0 || ^16.0.0 || ^16.0",
+//             "react-dom": "^0.14 || ^15.0.0-rc || ^15.0 || ^16.0.0 || ^16.0"
+//     }
+// },

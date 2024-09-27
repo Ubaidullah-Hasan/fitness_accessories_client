@@ -2,11 +2,11 @@ import { Flex, Spin } from 'antd';
 import { useGetAllCategoriesQuery } from '../redux/features/categories/categoriesApi';
 
 type TCategoryProps = {
-    selectedCategories: string[],
-    setSelectedCategories: (v: string[]) => void,
-}
+    selectedCategories: string[];
+    setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
+};
 
-const Categorybox = ({ selectedCategories, setSelectedCategories }) => { // todo
+const Categorybox = ({ selectedCategories, setSelectedCategories }: TCategoryProps) => { // todo
     // todo: does not work
     const { data: categories } = useGetAllCategoriesQuery(undefined)
 
