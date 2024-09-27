@@ -53,7 +53,7 @@ const MainHeader = () => {
     return (
         <Header
             style={{ display: "flex", alignItems: "center", justifyContent: "space-between", }}
-            className="bg-secondary"
+            className="bg-secondary px-2 md:px-8"
         >
             <div className="text-white text-2xl cursor-pointer" onClick={handleLogo}>
                 <span className=" font-extrabold">G</span>
@@ -80,8 +80,8 @@ const MainHeader = () => {
                         </Badge>
                     </Link>
                 </div>
-                <Link className="text-white hover:text-slate-300" to={""}><GoSearch /></Link>
-                <Link className="text-white hover:text-slate-300" to={""} ><CiUser /></Link>
+                <Link className="text-white hidden md:block hover:text-slate-300" to={""}><GoSearch /></Link>
+                <Link className="text-white hidden md:block hover:text-slate-300" to={""} ><CiUser /></Link>
             </div>
         </Header>
     );

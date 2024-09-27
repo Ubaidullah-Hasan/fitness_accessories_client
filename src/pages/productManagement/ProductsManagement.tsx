@@ -124,13 +124,13 @@ const ProductsManagement = () => {
 
     return (
         <div className='py-20 px-5'>
-            <div className='flex justify-between items-center mb-8'>
-                <h1 className=''>Product Management</h1>
+            <div className='flex flex-col md:flex-row gap-6 justify-between items-center mb-8'>
+                <h1 className='text-xl md:text-3xl lg:text-5xl'>Product Management</h1>
                 <Button type="primary" onClick={showModal} style={{ marginBottom: 16 }} icon={<IoMdAdd />}>
                     Add New Product
                 </Button>
             </div>
-            <Table dataSource={productsOptions} columns={columns} loading={productsLoading} />
+            <Table scroll={{ x: 'max-content' }} dataSource={productsOptions} columns={columns} loading={productsLoading} />
 
             {/* Add/Update Product Modal */}
             <Modal
